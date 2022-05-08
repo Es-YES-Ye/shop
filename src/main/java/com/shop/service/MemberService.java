@@ -1,6 +1,5 @@
 package com.shop.service;
 
-
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
