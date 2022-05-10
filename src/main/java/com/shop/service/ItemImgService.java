@@ -1,7 +1,11 @@
 package com.shop.service;
 
+import com.shop.dto.ItemFormDto;
+import com.shop.dto.ItemImgDto;
+import com.shop.entity.Item;
 import com.shop.entity.ItemImg;
 import com.shop.repository.ItemImgRepository;
+import com.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +27,7 @@ public class ItemImgService {
 
     private final ItemImgRepository itemImgRepository;
 
+    private final ItemRepository itemRepository;
     private final FileService fileService;
 
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception{
@@ -31,7 +39,9 @@ public class ItemImgService {
         if(!StringUtils.isEmpty(oriImgName)){
             imgName = fileService.uploadFile(itemImgLocation, oriImgName,
                     itemImgFile.getBytes());
+            System.out.println("이미지서비스"+imgName);
             imgUrl = "/images/item/" + imgName;
+            System.out.println("이미지서비스2"+imgUrl);
         }
 
         //상품 이미지 정보 저장
@@ -56,5 +66,6 @@ public class ItemImgService {
             savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
         }
     }
+
 
 }
